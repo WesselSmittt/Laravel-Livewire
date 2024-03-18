@@ -1,18 +1,26 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Livewire;
 
-use Livewire\Component;
 use App\Models\User;
- 
+use Livewire\Component;
+
 class SearchUsers extends Component
 {
     public $search = '';
- 
+
     public function render()
     {
+        $users = User::where('name', 'like', '%' . $this->search . '%')->get();
+
         return view('livewire.search-users', [
-            'users' => User::where('username', $this->search)->get(),
+            'users' => $users,
         ]);
+
+        
+    }
+
+    public function submit()
+    {
     }
 }
